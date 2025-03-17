@@ -1,0 +1,23 @@
+- name: Install Asterisk dependencies
+  apt:
+    name:
+      - asterisk
+      - asterisk-mysql
+    state: present
+
+- name: Configure Asterisk to Use MySQL
+  template:
+    src: extconfig.conf.j2
+    dest: /etc/asterisk/extconfig.conf
+    owner: asterisk
+    group: asterisk
+    mode: '0644'
+  notify:
+    - Restart Asterisk
+
+- name: Start and enable Asterisk
+  systemd:
+    name: asterisk
+    enabled: yes
+    state: started
+

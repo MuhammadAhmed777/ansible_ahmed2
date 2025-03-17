@@ -1,0 +1,26 @@
+- name: Install MySQL
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mysql-server
+    - mysql-client
+    - python3-mysqldb
+
+- name: Start and enable MySQL
+  systemd:
+    name: mysql
+    enabled: yes
+    state: started
+
+- name: Create Asterisk Database
+  mysql_db:
+    name: asterisk_db
+    state: present
+
+- name: Create MySQL User for Asterisk
+  mysql_user:
+    name: asterisk_user
+    password: "margalla99"
+    priv: "asterisk_db.*:ALL"
+    state: present

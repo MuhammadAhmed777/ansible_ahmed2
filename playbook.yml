@@ -1,0 +1,23 @@
+---
+
+#- name: Setup Asterisk Voice Server with MySQL
+# hosts: asterisk
+# become: true
+# tasks:
+#   - name: Include Asterisk role
+#     include_role:
+#       name: asterisk
+#
+#   - name: Include MySQL role
+#     include_role:
+#       name: mysql
+
+- name: Setup Asterisk Voice Server with MySQL
+  hosts: asterisk
+  become: true
+  roles:
+    - asterisk
+    - mysql
+
+
+  
